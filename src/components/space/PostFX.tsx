@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -42,9 +43,12 @@ export function PostFX({ bloom, motionBlur }: PostFXProps): JSX.Element | null {
     );
   }
 
-  return (
-    <EffectComposer multisampling={0}>
-      {bloom ? (
+  // EffectComposer's children typing does not accept null/false, so the two
+  // effect stacks are written as explicit branches instead of a conditional
+  // child. The rendered passes are identical to the previous behaviour.
+  if (bloom) {
+    return (
+      <EffectComposer multisampling={0}>
         <Bloom
           intensity={0.85}
           luminanceThreshold={0.22}
@@ -52,7 +56,20 @@ export function PostFX({ bloom, motionBlur }: PostFXProps): JSX.Element | null {
           mipmapBlur
           radius={0.72}
         />
-      ) : null}
+        <ChromaticAberration
+          blendFunction={BlendFunction.NORMAL}
+          offset={aberrationOffset}
+          radialModulation={false}
+          modulationOffset={0}
+        />
+        <Vignette eskil={false} offset={0.26} darkness={0.66} />
+        <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.32} />
+      </EffectComposer>
+    );
+  }
+
+  return (
+    <EffectComposer multisampling={0}>
       <ChromaticAberration
         blendFunction={BlendFunction.NORMAL}
         offset={aberrationOffset}
