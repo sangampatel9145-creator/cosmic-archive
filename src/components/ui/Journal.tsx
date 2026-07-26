@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type MotionProps } from 'framer-motion';
 import { BookOpen, Lock, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
@@ -19,12 +19,12 @@ const TABS: readonly { readonly id: Tab; readonly label: string }[] = [
   { id: 'credits', label: 'Credits' },
 ];
 
-const fade = {
+const fade: MotionProps = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -6 },
   transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-} as const;
+};
 
 export function Journal(): JSX.Element {
   const isOpen = useUniverseStore((state) => state.isJournalOpen);
