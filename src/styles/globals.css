@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 5 8 22;
+    --color-secondary: 11 16 38;
+    --color-accent: 109 93 246;
+    --color-glow: 108 246 255;
+    --color-nebula: 122 77 255;
+    --color-gold: 255 215 106;
+
+    --space-panel: rgba(255, 255, 255, 0.04);
+    --space-outline: rgba(255, 255, 255, 0.09);
+    --space-outline-strong: rgba(122, 245, 255, 0.28);
+
+    --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body {
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body {
+    background-color: #050816;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: var(--font-body), system-ui, sans-serif;
+    letter-spacing: 0.012em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: rgba(109, 93, 246, 0.35);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(122, 245, 255, 0.85);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Custom cursor replaces the system cursor on precise pointers only. */
+  @media (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor * {
+      cursor: none !important;
+    }
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.025) 45%,
+      rgba(11, 16, 38, 0.55) 100%
+    );
+    border: 1px solid var(--space-outline);
+    box-shadow:
+      0 24px 60px -28px rgba(0, 0, 0, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-radius: 20px;
+  }
+
+  .glass-panel-strong {
+    border-color: var(--space-outline-strong);
+    box-shadow:
+      0 30px 80px -30px rgba(0, 0, 0, 0.95),
+      0 0 42px -18px rgba(109, 93, 246, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(122, 245, 255, 0.4),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .text-eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: rgba(122, 245, 255, 0.72);
+  }
+
+  .scroll-region {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(122, 245, 255, 0.3) transparent;
+  }
+
+  .scroll-region::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scroll-region::-webkit-scrollbar-thumb {
+    background: rgba(122, 245, 255, 0.28);
+    border-radius: 999px;
+  }
+}
+
+@layer utilities {
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.9) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 3px 3px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
