@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { useState, type ReactNode } from 'react';
 
 import { GlowButton } from '@/components/ui/GlowButton';
@@ -16,7 +16,7 @@ import {
 import { useUniverseStore } from '@/lib/store';
 import type { DestinationId, GalleryRecord, ProjectRecord } from '@/types';
 
-const reveal = {
+const reveal: Variants = {
   hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
   visible: (index: number) => ({
     opacity: 1,
@@ -24,7 +24,7 @@ const reveal = {
     filter: 'blur(0px)',
     transition: { delay: 0.06 * index, duration: 0.75, ease: [0.16, 1, 0.3, 1] },
   }),
-} as const;
+};
 
 function Section({
   children,
